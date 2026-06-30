@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Off-Page Dictionary — papernest</title>
+<style>
+:root {
+  --pp: #5A52FF; --pp-l: #ECEAFF; --pp-d: #3D36CC;
+  --gr: #0FC4B2; --gr-l: #E7F9F7;
+  --ye: #FFB81D; --ye-l: #FFF7E8;
+  --bl: #4C89FF; --bl-l: #DBE7FF;
+  --pk: #FD6C93; --pk-l: #FFF0F4;
+  --pu: #A42DAE; --pu-l: #F6E9F8;
+  --n1: #F7F7F9; --n2: #EEEFF2; --n4: #B0B3C0; --n6: #63697F; --n9: #111827;
+  --wh: #FFFFFF;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',-apple-system,sans-serif;background:var(--n1);color:var(--n9);font-size:14px;line-height:1.5}
+
+.hdr{background:var(--pp);padding:28px 28px 24px;display:flex;align-items:center;gap:14px}
+.hdr-logo{width:40px;height:40px;flex-shrink:0}
+.hdr-text{color:#fff}
+.hdr-title{font-size:20px;font-weight:800;letter-spacing:-.3px}
+.hdr-sub{font-size:13px;color:rgba(255,255,255,.65);margin-top:2px}
+
+.search-bar{padding:18px 28px;background:var(--wh);border-bottom:1px solid var(--n2);position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.search-input-wrap{position:relative;max-width:520px}
+.search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--n4);font-size:15px}
+.search-input{width:100%;border:1.5px solid var(--n2);border-radius:20px;padding:10px 16px 10px 38px;font-size:14px;outline:none;transition:border-color .15s;font-family:inherit;color:var(--n9)}
+.search-input:focus{border-color:var(--pp)}
+.search-meta{font-size:11px;color:var(--n4);margin-top:8px}
+
+.cat-bar{display:flex;gap:6px;padding:14px 28px;overflow-x:auto;background:var(--wh);border-bottom:1px solid var(--n2)}
+.cat-btn{flex-shrink:0;border:1.5px solid var(--n2);background:var(--wh);border-radius:18px;padding:6px 14px;font-size:12px;font-weight:600;cursor:pointer;color:var(--n6);white-space:nowrap;transition:all .12s;font-family:inherit}
+.cat-btn:hover{border-color:var(--pp);color:var(--pp)}
+.cat-btn.on{background:var(--pp);border-color:var(--pp);color:#fff}
+
+.main{padding:24px 28px 64px;max-width:1100px;margin:0 auto}
+
+.group{margin-bottom:32px}
+.group-title{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--n6);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.group-count{background:var(--n2);color:var(--n6);border-radius:10px;padding:1px 8px;font-size:11px;font-weight:700}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.card{background:var(--wh);border-radius:12px;padding:14px 16px;border:1px solid var(--n2);transition:all .15s}
+.card:hover{border-color:var(--pp);box-shadow:0 2px 10px rgba(90,82,255,.08)}
+.card-term{font-size:14px;font-weight:700;color:var(--n9);margin-bottom:4px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.card-desc{font-size:12.5px;color:var(--n6);line-height:1.5}
+.card-example{display:inline-block;background:var(--n1);border-radius:5px;padding:1px 7px;font-size:11px;color:var(--n6);margin-top:6px;font-family:'Courier New',monospace}
+
+.badge{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.3px;border-radius:4px;padding:2px 6px}
+.b-good{background:var(--gr-l);color:#0a6b64}
+.b-bad{background:#FEF2F2;color:#991B1B}
+.b-neutral{background:var(--n1);color:var(--n6)}
+
+.empty{text-align:center;padding:60px 20px;color:var(--n4)}
+.empty-icon{font-size:36px;margin-bottom:10px}
+
+mark{background:#FFF1B8;color:var(--n9);border-radius:2px;padding:0 1px}
+
+@media(max-width:640px){
+  .hdr{padding:20px}
+  .search-bar,.cat-bar,.main{padding-left:16px;padding-right:16px}
+  .grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <svg class="hdr-logo" viewBox="0 0 302 302" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect width="302" height="302" rx="151" fill="white" opacity="0.15"/>
+    <path d="M161.506 57.0209C128.584 57.0209 101.472 82.6075 99.2588 115.524C99.2588 116.216 99.2588 117.046 99.2588 117.737V231.84C99.2588 239.17 105.069 244.979 112.4 244.979C119.731 244.979 125.541 239.17 125.541 231.84V119.95C125.541 99.4809 142.417 83.299 162.198 83.299C181.978 83.299 198.854 100.172 198.854 119.95C198.854 139.728 181.978 156.463 162.198 156.463C154.866 156.463 149.056 162.272 149.056 169.602C149.056 176.932 154.866 182.741 162.198 182.741C195.811 182.741 225.136 154.25 225.136 119.812C225.136 85.3736 195.119 57.0209 161.506 57.0209Z" fill="white"/>
+  </svg>
+  <div class="hdr-text">
+    <div class="hdr-title">Off-Page Dictionary</div>
+    <div class="hdr-sub">Quick reference for backlinks, link building and growth metrics</div>
+  </div>
+</div>
+
+<div class="search-bar">
+  <div class="search-input-wrap">
+    <span class="search-icon">&#128269;</span>
+    <input type="text" class="search-input" id="search" placeholder="Search a term, e.g. nofollow, DR, anchor text..." oninput="renderAll()">
+  </div>
+  <div class="search-meta" id="result-count"></div>
+</div>
+
+<div class="cat-bar" id="cat-bar"></div>
+
+<div class="main" id="main-content"></div>
+
+<script>
+const TERMS = [
+  // General metrics
+  {term:"Domain Rating (DR)", cat:"metrics", desc:"A score from Ahrefs (0 to 100) based on the strength of a domain's backlink profile. Higher DR means more authority passed to anyone it links to."},
+  {term:"RP (Referring Pages)", cat:"metrics", desc:"Number of unique pages that contain backlinks to the site, regardless of how many domains those pages belong to."},
+  {term:"Referring Domains", cat:"metrics", desc:"Number of unique domains linking to the site. More valuable than raw backlink count since it shows breadth, not just volume."},
+  {term:"Backlinks", cat:"metrics", desc:"Total number of links pointing to the site. A single domain can produce many backlinks, so this number alone can be misleading."},
+
+  // By link attribute
+  {term:"Follow links", cat:"attribute", desc:"Pass authority (link juice) to the target site. The default type and the most valuable for SEO.", tag:"good"},
+  {term:"Nofollow links", cat:"attribute", desc:"Do not directly transfer authority to the target site. Still useful for referral traffic and brand visibility.", tag:"neutral"},
+  {term:"Sponsored links", cat:"attribute", desc:"Labeled as paid links (rel=sponsored). Required by Google whenever a link is part of a paid placement.", tag:"neutral"},
+  {term:"UGC links", cat:"attribute", desc:"Links from user-generated content such as forums or comments (rel=ugc). Lower authority value, easy to spam.", tag:"neutral"},
+
+  // By placement
+  {term:"In-content links", cat:"placement", desc:"Located in the main body of the content. The most valuable placement since it signals editorial intent.", tag:"good"},
+  {term:"Sidebar links", cat:"placement", desc:"Found in the sidebars of web pages. Lower value, often used for widgets or recurring promotions."},
+  {term:"Footer links", cat:"placement", desc:"Located in the footer of a page. Least impactful placement, frequently ignored or devalued by Google.", tag:"bad"},
+  {term:"Header links", cat:"placement", desc:"Found in the header or navigation of the page. Usually site-wide, so individual link value is diluted."},
+
+  // By source
+  {term:"Guest post links", cat:"source", desc:"Links obtained through guest blogging, where we write an article for another site in exchange for a backlink."},
+  {term:"Forum links", cat:"source", desc:"Links placed in forums or discussion boards. Generally low authority and high spam risk."},
+  {term:"Social media links", cat:"source", desc:"Links shared on social platforms. Usually nofollow by default and contribute little direct SEO value."},
+  {term:"Affiliate links", cat:"source", desc:"Links generated as part of an affiliate marketing arrangement, often disclosed and sometimes nofollow."},
+  {term:"Press release links", cat:"source", desc:"Links from distributed press releases. Often flagged by Google as low-value unless from a genuinely editorial pickup."},
+
+  // By purpose / anchor text
+  {term:"Branded links", cat:"anchor", desc:"Anchor text uses the brand name.", example:"papernest"},
+  {term:"Exact match links", cat:"anchor", desc:"Anchor text uses a specific target keyword exactly. Overuse can look manipulative to Google.", example:"compare electricity prices"},
+  {term:"Partial match links", cat:"anchor", desc:"Anchor text combines the brand name with a keyword.", example:"papernest electricity comparison"},
+  {term:"Generic links", cat:"anchor", desc:"Anchor text uses generic terms with no SEO targeting.", example:"click here, learn more"},
+  {term:"Image links", cat:"anchor", desc:"Links embedded in images, where the alt text functions as the anchor text for SEO purposes."},
+
+  // By status code
+  {term:"Active (200)", cat:"status", desc:"Backlinks that point to live, working pages. What we want for every link we earn.", tag:"good"},
+  {term:"Redirects (301/302)", cat:"status", desc:"Links that redirect to a different URL. A 301 passes most authority through; a 302 passes less and is meant to be temporary."},
+  {term:"Broken (404)", cat:"status", desc:"Links that point to pages that no longer exist. These pass zero value and should be fixed or redirected.", tag:"bad"},
+  {term:"Server errors (500)", cat:"status", desc:"Links pointing to pages with server issues. Functionally broken from an SEO perspective.", tag:"bad"},
+  {term:"Timeouts", cat:"status", desc:"Links to pages that fail to load within a reasonable time. Often a sign of an unreliable or low-quality host."},
+
+  // Other metrics
+  {term:"Relevance", cat:"quality", desc:"Topical relevance between the linking site and our site. A link from an energy site is more relevant than one from an unrelated niche."},
+  {term:"Authority", cat:"quality", desc:"DR, DA, or other metrics describing the strength of the linking domain or page."},
+  {term:"Traffic of referring domain", cat:"quality", desc:"How much organic traffic the linking site itself receives. A high-traffic site passing a link is generally more valuable."},
+  {term:"Spam score", cat:"quality", desc:"Risk level of the linking domain, as measured by Moz's Spam Score or a similar tool. High spam score is a red flag for the link's safety."},
+
+  // Other KPIs
+  {term:"Referral traffic", cat:"kpi", desc:"Volume of traffic generated directly by clicks on our backlinks, separate from organic search traffic."},
+  {term:"Conversion rate", cat:"kpi", desc:"Percentage of referral traffic that converts into a lead or a sale."},
+  {term:"Linking domains overlap", cat:"kpi", desc:"Domains that link to both papernest and a competitor. Useful for finding sites likely to also link to us."},
+  {term:"Unique linking domains", cat:"kpi", desc:"Domains that link exclusively to a competitor, not to us. A target list for outreach."},
+  {term:"Sentiment analysis", cat:"kpi", desc:"The tone, positive, neutral, or negative, of brand mentions found across the web."},
+
+  // Link mechanics (kept from former PR section, link-specific only)
+  {term:"Link Exchange", cat:"linkmech", desc:"A reciprocal agreement between two sites to exchange backlinks. Commercial in nature, as opposed to an earned editorial link."},
+  {term:"Link equity", cat:"linkmech", desc:"The SEO value passed from one page to another through a link. Diluted the more outbound links a page has."},
+  {term:"Deep link", cat:"linkmech", desc:"A link pointing to an internal page rather than the homepage. Usually more relevant and valuable for the specific topic."},
+  {term:"Link velocity", cat:"linkmech", desc:"The rate at which a site gains new backlinks over time. Unnaturally fast spikes can look manipulative to Google."},
+  {term:"Toxic backlinks", cat:"linkmech", desc:"Links from spammy, penalized, or irrelevant domains that can harm rankings rather than help them."},
+  {term:"Disavow", cat:"linkmech", desc:"A Google Search Console tool used to tell Google to ignore specific toxic backlinks when evaluating a site."},
+  {term:"Link reclamation", cat:"linkmech", desc:"Finding existing online mentions of the brand that are not yet linked, and asking the site to convert the mention into a link."},
+  {term:"Anchor text diversity", cat:"linkmech", desc:"Having a healthy mix of branded, generic, and keyword anchors across a backlink profile, rather than repeating the same anchor."},
+
+  // Active link building techniques
+  {term:"Broken link building", cat:"technique", desc:"Finding broken (404) links on other sites and suggesting our own content as a working replacement."},
+  {term:"Skyscraper technique", cat:"technique", desc:"Finding well-linked content on a topic, creating something more complete or current, then reaching out to the sites linking to the original."},
+  {term:"HARO / journalist requests", cat:"technique", desc:"Responding to journalist requests for expert quotes or data, in exchange for a citation and often a backlink."},
+  {term:"Resource page link building", cat:"technique", desc:"Finding curated resource or links pages in a niche and pitching our content for inclusion."},
+  {term:"Unlinked brand mention", cat:"technique", desc:"A mention of papernest on another site that does not yet include a link. A common target for outreach."},
+  {term:"Niche edit", cat:"technique", desc:"Getting a link inserted into an already-published, relevant article rather than publishing new content."},
+
+  // SEO fundamentals (on-page concepts that affect off-page work)
+  {term:"Canonical tag", cat:"fundamentals", desc:"An HTML tag telling Google which version of a duplicate page should be treated as the original for ranking and link credit."},
+  {term:"Redirect chain", cat:"fundamentals", desc:"A series of multiple redirects before reaching the final URL. Each hop can leak a small amount of link equity."},
+  {term:"Crawlability", cat:"fundamentals", desc:"Whether Google's bots can access and read a page at all. A page that cannot be crawled cannot pass or receive link value."},
+  {term:"Indexation", cat:"fundamentals", desc:"Whether a page has been added to Google's index. A backlink to a non-indexed page provides no SEO benefit yet."},
+  {term:"Topical authority", cat:"fundamentals", desc:"How strongly a site is seen as a trusted source on a specific subject, built through consistent, relevant content and links over time."},
+  {term:"E-E-A-T", cat:"fundamentals", desc:"Experience, Expertise, Authoritativeness, Trustworthiness. Google's framework for judging content and site quality, especially for sensitive topics like finance and energy."},
+
+  // Penalties and risk
+  {term:"Manual action", cat:"risk", desc:"A penalty applied directly by a Google reviewer, often for unnatural link schemes, visible in Search Console."},
+  {term:"Algorithmic penalty", cat:"risk", desc:"A drop in rankings caused by a Google algorithm update rather than a manual reviewer, often harder to diagnose."},
+  {term:"Link scheme", cat:"risk", desc:"Any pattern of link building designed primarily to manipulate rankings, which violates Google's guidelines and risks a penalty."},
+  {term:"PBN (Private Blog Network)", cat:"risk", desc:"A group of sites built solely to link to each other or to a target site. High risk; against Google's guidelines."},
+];
+
+
+
+const CATEGORIES = [
+  {id:"all", label:"All terms"},
+  {id:"metrics", label:"General metrics"},
+  {id:"attribute", label:"By link attribute"},
+  {id:"placement", label:"By placement"},
+  {id:"source", label:"By source"},
+  {id:"anchor", label:"By anchor text"},
+  {id:"status", label:"By status code"},
+  {id:"quality", label:"By quality"},
+  {id:"kpi", label:"Other KPIs"},
+  {id:"linkmech", label:"Link mechanics"},
+  {id:"technique", label:"Link building techniques"},
+  {id:"fundamentals", label:"SEO fundamentals"},
+  {id:"risk", label:"Penalties and risk"},
+];
+
+let activeCat = "all";
+
+function renderCatBar() {
+  const bar = document.getElementById("cat-bar");
+  bar.innerHTML = CATEGORIES.map(c =>
+    `<button class="cat-btn ${c.id===activeCat?'on':''}" onclick="setCat('${c.id}')">${c.label}</button>`
+  ).join("");
+}
+
+function setCat(id) {
+  activeCat = id;
+  renderCatBar();
+  renderAll();
+}
+
+function highlight(text, query) {
+  if (!query) return text;
+  const idx = text.toLowerCase().indexOf(query.toLowerCase());
+  if (idx === -1) return text;
+  return text.slice(0, idx) + "<mark>" + text.slice(idx, idx + query.length) + "</mark>" + text.slice(idx + query.length);
+}
+
+function renderAll() {
+  const query = document.getElementById("search").value.trim().toLowerCase();
+  const main = document.getElementById("main-content");
+  const countEl = document.getElementById("result-count");
+
+  let filtered = TERMS.filter(t => {
+    if (activeCat !== "all" && t.cat !== activeCat) return false;
+    if (query && !t.term.toLowerCase().includes(query) && !t.desc.toLowerCase().includes(query)) return false;
+    return true;
+  });
+
+  countEl.textContent = query ? `${filtered.length} result${filtered.length===1?'':'s'} for "${query}"` : `${TERMS.length} terms total`;
+
+  if (filtered.length === 0) {
+    main.innerHTML = `<div class="empty"><div class="empty-icon">&#128269;</div>No terms match your search.</div>`;
+    return;
+  }
+
+  // Group by category for display, preserving category order
+  const byCat = {};
+  CATEGORIES.forEach(c => { if (c.id !== "all") byCat[c.id] = []; });
+  filtered.forEach(t => byCat[t.cat].push(t));
+
+  let html = "";
+  CATEGORIES.forEach(c => {
+    if (c.id === "all") return;
+    const items = byCat[c.id];
+    if (!items || items.length === 0) return;
+    html += `<div class="group">
+      <div class="group-title">${c.label} <span class="group-count">${items.length}</span></div>
+      <div class="grid">`;
+    items.forEach(t => {
+      const tagHtml = t.tag ? `<span class="badge b-${t.tag}">${t.tag === 'good' ? 'High value' : t.tag === 'bad' ? 'Low value' : 'Neutral'}</span>` : '';
+      html += `<div class="card">
+        <div class="card-term">${highlight(t.term, query)} ${tagHtml}</div>
+        <div class="card-desc">${highlight(t.desc, query)}</div>
+        ${t.example ? `<div class="card-example">${t.example}</div>` : ''}
+      </div>`;
+    });
+    html += `</div></div>`;
+  });
+
+  main.innerHTML = html;
+}
+
+renderCatBar();
+renderAll();
+</script>
+
+</body>
+</html>
